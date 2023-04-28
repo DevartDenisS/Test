@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[DEPT] (
+  [DEPTNO] [int] NOT NULL,
+  [DNAME] [varchar](20) NULL,
+  [LOC] [varchar](20) NULL,
+  PRIMARY KEY CLUSTERED ([DEPTNO])
+)
+ON [PRIMARY]
+GO
