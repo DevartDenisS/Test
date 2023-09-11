@@ -1,5 +1,0 @@
-﻿CREATE TABLE [dbo].[DUMMY] (
-  [DUMMY] [int] NULL
-)
-ON [PRIMARY]
-GO
