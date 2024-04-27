@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[actor] (
   [actor_id] [int] IDENTITY,
-  [first_name] [varchar](45) NOT NULL,
+  [first_name] [varchar](50) NOT NULL,
   [last_name] [varchar](45) NOT NULL,
   [last_update] [datetime] NOT NULL CONSTRAINT [DF_actor_last_update] DEFAULT (getdate()),
   PRIMARY KEY NONCLUSTERED ([actor_id])
