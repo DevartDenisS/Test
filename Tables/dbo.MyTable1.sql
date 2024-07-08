@@ -1,6 +1,7 @@
-﻿CREATE TABLE [dbo].[MyTable1] (
-  [col1] [int] NOT NULL,
-  PRIMARY KEY CLUSTERED ([col1])
-)
-ON [PRIMARY]
+CREATE TABLE [dbo].[MyTable1]
+(
+[col1] [int] NOT NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[MyTable1] ADD CONSTRAINT [PK__MyTable1__797CEEBF] PRIMARY KEY CLUSTERED ([col1]) ON [PRIMARY]
 GO
