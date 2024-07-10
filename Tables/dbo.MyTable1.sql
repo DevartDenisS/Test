@@ -1,8 +1,0 @@
-CREATE TABLE [dbo].[MyTable1]
-(
-[col1] [int] NOT NULL,
-[col2] [nchar] (10) COLLATE Cyrillic_General_CI_AS NULL
-) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[MyTable1] ADD CONSTRAINT [PK__MyTable1__797CEEBF] PRIMARY KEY CLUSTERED ([col1]) ON [PRIMARY]
-GO
