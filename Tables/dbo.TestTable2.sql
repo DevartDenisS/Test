@@ -1,0 +1,8 @@
+CREATE TABLE [dbo].[TestTable2]
+(
+[Col1] [int] NOT NULL,
+[Col2] [char] (20) COLLATE Cyrillic_General_CI_AS NULL
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[TestTable2] ADD CONSTRAINT [PK__TestTabl__A259EE54EB62FFCD] PRIMARY KEY CLUSTERED ([Col1]) ON [PRIMARY]
+GO
