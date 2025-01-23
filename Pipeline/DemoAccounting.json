@@ -1,0 +1,389 @@
+{
+  "options": [
+    {
+      "enabled": false,
+      "definition": {
+        "id": "5d58cc01-7c75-450c-be18-a388ddb129ec"
+      },
+      "inputs": {
+        "branchFilters": "[\"+refs/heads/*\"]",
+        "additionalFields": "{}"
+      }
+    },
+    {
+      "enabled": false,
+      "definition": {
+        "id": "a9db38f9-9fdc-478c-b0f9-464221e58316"
+      },
+      "inputs": {
+        "workItemType": "Issue",
+        "assignToRequestor": "true",
+        "additionalFields": "{}"
+      }
+    }
+  ],
+  "variables": {
+    "system.debug": {
+      "value": "false",
+      "allowOverride": true
+    }
+  },
+  "properties": {
+  },
+  "tags": [
+  ],
+  "_links": {
+    "self": {
+      "href": "https://dev.azure.com/mazfalke0529/17ecae08-ffcc-4420-aa7b-be669326f6e1/_apis/build/Definitions/25?revision=17"
+    },
+    "web": {
+      "href": "https://dev.azure.com/mazfalke0529/17ecae08-ffcc-4420-aa7b-be669326f6e1/_build/definition?definitionId=25"
+    },
+    "editor": {
+      "href": "https://dev.azure.com/mazfalke0529/17ecae08-ffcc-4420-aa7b-be669326f6e1/_build/designer?id=25&_a=edit-build-definition"
+    },
+    "badge": {
+      "href": "https://dev.azure.com/mazfalke0529/17ecae08-ffcc-4420-aa7b-be669326f6e1/_apis/build/status/25"
+    }
+  },
+  "jobAuthorizationScope": 1,
+  "jobTimeoutInMinutes": 60,
+  "jobCancelTimeoutInMinutes": 5,
+  "process": {
+    "phases": [
+      {
+        "steps": [
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Create a database from script folder - Step Build",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "a6d51157-b531-4722-a439-44ba0d7beba1",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "sourceType": "subroot",
+              "sourceScriptFolder": "DemoAccounting\\ScriptsFolder",
+              "targetServer": "(LocalDb)\\MSSQLLocalDB",
+              "targetDbName": "DemoAccounting",
+              "targetAuthMethod": "windowsAuth",
+              "targetConnUserName": "",
+              "targetConnPassword": "",
+              "additionalParams": "",
+              "filterPath": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Populate database with sample  - Step Populate",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "2dc0ee13-5011-4793-90bb-98fedaa9c3c2",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "projectFile": "DemoAccounting\\TestData\\DemoAccounting.dgen",
+              "targetServer": "(LocalDb)\\MSSQLLocalDB",
+              "targetDbName": "DemoAccounting",
+              "targetAuthMethod": "windowsAuth",
+              "targetConnUserName": "",
+              "targetConnPassword": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Run the migration scripts against a database - Step Execute",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "23b50454-c64e-4bd4-a574-eaf48501e1b0",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "input": "DemoAccounting\\Migrations",
+              "encoding": "",
+              "zipPassword": "",
+              "ignoreError": "false",
+              "sqlServer": "(LocalDb)\\MSSQLLocalDB",
+              "dbName": "DemoAccounting",
+              "authMethod": "windowsAuth",
+              "connUserName": "",
+              "connPassword": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Document  a database - Step Document",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "dac5faac-2ba0-46b9-a837-fe8e9c634313",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "targetServer": "(LocalDb)\\MSSQLLocalDB",
+              "targetDbName": "DemoAccounting",
+              "targetAuthMethod": "windowsAuth",
+              "targetConnUserName": "",
+              "targetConnPassword": "",
+              "additionalOptions": "",
+              "projectFile": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Add unit tests to a database - Step Execute",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "23b50454-c64e-4bd4-a574-eaf48501e1b0",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "input": "DemoAccounting\\UnitTests\\WithSuccess",
+              "encoding": "",
+              "zipPassword": "",
+              "ignoreError": "false",
+              "sqlServer": "(LocalDb)\\MSSQLLocalDB",
+              "dbName": "DemoAccounting",
+              "authMethod": "windowsAuth",
+              "connUserName": "",
+              "connPassword": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Run the unit tests - Step Test",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "b55c1d3c-b074-4df6-8eaf-279de27b3762",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "targetServer": "(LocalDb)\\MSSQLLocalDB",
+              "targetDbName": "DemoAccounting",
+              "targetAuthMethod": "windowsAuth",
+              "targetConnUserName": "",
+              "targetConnPassword": "",
+              "testsType": "everyTest",
+              "selectedTests": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Create a nuget package from a folder- Step Package",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "b9c57c81-1fa4-4a7b-841e-b1724e2f9284",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "id": "dbForgePackage.1.0.$(Build.BuildNumber)",
+              "includeDocumentation": "true",
+              "sourceType": "subroot",
+              "sourceScriptFolder": "DemoAccounting\\Migrations"
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": true,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "Publish a package - Step Publish",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "5c826f20-4d2b-4ab6-a3f5-54956a2f65fe",
+              "versionSpec": "1.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "id": "dbForgePackage.1.0.$(Build.BuildNumber).nupkg",
+              "packageFolderType": "root",
+              "packageFolder": "",
+              "uRLOrPackagesSourceKey": "d:\\3",
+              "aPIKey": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": false,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "PowerShell Script",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "e213ff0f-5d5c-4791-802d-52ea3e7be1f1",
+              "versionSpec": "2.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "targetType": "inline",
+              "filePath": "",
+              "arguments": "",
+              "script": "# Write your PowerShell commands here.\n\nWrite-Host \"Hello World\"\n\nSet-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\n\n",
+              "errorActionPreference": "stop",
+              "failOnStderr": "false",
+              "ignoreLASTEXITCODE": "false",
+              "pwsh": "false",
+              "workingDirectory": ""
+            }
+          },
+          {
+            "environment": {
+            },
+            "enabled": false,
+            "continueOnError": false,
+            "alwaysRun": false,
+            "displayName": "PowerShell Script",
+            "timeoutInMinutes": 0,
+            "condition": "succeeded()",
+            "task": {
+              "id": "e213ff0f-5d5c-4791-802d-52ea3e7be1f1",
+              "versionSpec": "2.*",
+              "definitionType": "task"
+            },
+            "inputs": {
+              "targetType": "inline",
+              "filePath": "",
+              "arguments": "",
+              "script": "# Write your PowerShell commands here.\n\nWrite-Host \"Hello World\"\n\nchoco install dbforge-sql-tools --ignorechecksum --y",
+              "errorActionPreference": "stop",
+              "failOnStderr": "false",
+              "ignoreLASTEXITCODE": "false",
+              "pwsh": "false",
+              "workingDirectory": ""
+            }
+          }
+        ],
+        "name": "Agent job 1",
+        "refName": "Job_1",
+        "condition": "succeeded()",
+        "target": {
+          "executionOptions": {
+            "type": 0
+          },
+          "allowScriptsAuthAccessOption": false,
+          "type": 1
+        },
+        "jobAuthorizationScope": 1
+      }
+    ],
+    "type": 1
+  },
+  "repository": {
+    "properties": {
+      "fullName": "repository",
+      "cloneUrl": "https://github.com/mazcom/DemoProjects.git",
+      "isPrivate": "False",
+      "checkoutNestedSubmodules": "false",
+      "cleanOptions": "0",
+      "fetchDepth": "0",
+      "gitLfsSupport": "false",
+      "reportBuildStatus": "false",
+      "connectedServiceId": "da797542-cf7e-41f7-ab45-fe2120be2684",
+      "skipSyncSource": "false",
+      "labelSourcesFormat": "$(build.buildNumber)",
+      "labelSources": "0"
+    },
+    "id": "https://github.com/mazcom/DemoProjects.git",
+    "type": "Git",
+    "name": "Git DemoAccounting",
+    "url": "https://github.com/mazcom/DemoProjects.git",
+    "defaultBranch": "master",
+    "clean": "false",
+    "checkoutSubmodules": false
+  },
+  "processParameters": {
+  },
+  "quality": 1,
+  "authoredBy": {
+    "displayName": "mazfalke",
+    "url": "https://spsprodweu3.vssps.visualstudio.com/A9fb80337-6eac-4e1b-aa5d-4019a216277c/_apis/Identities/88d561d3-6e43-4afe-895e-4822447ebbdf",
+    "_links": {
+      "avatar": {
+        "href": "https://dev.azure.com/mazfalke0529/_apis/GraphProfile/MemberAvatars/msa.NzU3ZTc4MzgtMzkzNi03YzkxLTgwYTMtNDhiNjFiNDVkNmIw"
+      }
+    },
+    "id": "88d561d3-6e43-4afe-895e-4822447ebbdf",
+    "uniqueName": "mazfalke@outlook.com",
+    "imageUrl": "https://dev.azure.com/mazfalke0529/_apis/GraphProfile/MemberAvatars/msa.NzU3ZTc4MzgtMzkzNi03YzkxLTgwYTMtNDhiNjFiNDVkNmIw",
+    "descriptor": "msa.NzU3ZTc4MzgtMzkzNi03YzkxLTgwYTMtNDhiNjFiNDVkNmIw"
+  },
+  "drafts": [
+  ],
+  "queue": {
+    "_links": {
+      "self": {
+        "href": "https://dev.azure.com/mazfalke0529/_apis/build/Queues/12"
+      }
+    },
+    "id": 12,
+    "name": "Default",
+    "url": "https://dev.azure.com/mazfalke0529/_apis/build/Queues/12",
+    "pool": {
+      "id": 1,
+      "name": "Default"
+    }
+  },
+  "id": 25,
+  "name": "DemoAccounting",
+  "url": "https://dev.azure.com/mazfalke0529/17ecae08-ffcc-4420-aa7b-be669326f6e1/_apis/build/Definitions/25?revision=17",
+  "uri": "vstfs:///Build/Definition/25",
+  "path": "\\",
+  "type": 2,
+  "queueStatus": 0,
+  "revision": 17,
+  "createdDate": "2020-03-04T14:17:39.580Z",
+  "project": {
+    "id": "17ecae08-ffcc-4420-aa7b-be669326f6e1",
+    "name": "CI Project",
+    "url": "https://dev.azure.com/mazfalke0529/_apis/projects/17ecae08-ffcc-4420-aa7b-be669326f6e1",
+    "state": 1,
+    "revision": 20,
+    "visibility": 0,
+    "lastUpdateTime": "2019-12-27T07:55:34.533Z"
+  }
+}
