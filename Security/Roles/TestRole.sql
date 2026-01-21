@@ -1,2 +1,0 @@
-﻿CREATE ROLE [TestRole] AUTHORIZATION [dbo]
-GO

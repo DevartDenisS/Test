@@ -1,3 +1,0 @@
-﻿CREATE USER [TestUser]
-  WITHOUT LOGIN
-GO
